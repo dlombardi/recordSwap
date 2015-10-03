@@ -1,6 +1,7 @@
 var passport = require('passport');
 var Account = require('../models/user');
 var Record = require('../models/record')
+var Trade = require('../models/trade')
 
 module.exports = function (app) {
 
@@ -94,17 +95,6 @@ module.exports = function (app) {
     }
   })
 
-  app.post('/pendingApproval', function(req, res){
-    Account.findById(req.body.uid, function(err, user){
-      Apartment.findById(req.body.aid, function(err, apartment){
-        console.log(apartment);
-        apartment.applicants.push(user);
-        apartment.save();
-        res.send("ok");
-      });
-    });
-  });
-
   /*admin routes*/
 
   /*add a manager*/
@@ -128,7 +118,6 @@ module.exports = function (app) {
      });
    });
  });
-
 
  app.get('/showUsers', function(req, res){
    Account.find({}, function(err, users){

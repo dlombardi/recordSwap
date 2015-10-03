@@ -1,7 +1,6 @@
 var Mongoose = require('mongoose');
 var Schema = Mongoose.Schema;
 var User = require('./user');
-var Record = require('./record');
 
 var recordSchema = new Schema({
  	user: {type: Mongoose.Schema.ObjectId , ref: 'User'},
