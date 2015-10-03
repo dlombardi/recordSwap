@@ -69,14 +69,41 @@ angular.module('starter.controllers', [])
 
   swapService.getRecords()
   .success(function(data){
-    $scope.items = data;
+    var records = data.slice();
+    for (var i= records.length-1; i>=0; i--){
+      if (records[i].user === $scope.user._id) {
+        var removed = records.splice(i, 1)
+      }
+    }
+    $scope.items = records;
   });
 
 
+  $scope.requestTrade = function(myRecord, desiredRecord) {
+    console.log(myRecord);
+    console.log(desiredRecord);
+    var swap= {};
+    swap.sender = myRecord.user;
+    swap.receiver = desiredRecord.user;
+    swap.senderRecords = [myRecord._id];
+    swap.receiverRecords = [desiredRecord._id];
+    console.log(swap);
+    swapService.requestSwap(swap).success(function(data){
+      console.log(data)
+    })
 
-  $scope.selectRecord = function(record){
-
+  // sender: {type: Mongoose.Schema.ObjectId , ref: 'User'},
+  // receiver: {type: Mongoose.Schema.ObjectId , ref: 'User'},
+  // senderRecords: [{type: Mongoose.Schema.ObjectId , ref: 'Record'}],
+  // receiverRecords: [{type: Mongoose.Schema.ObjectId , ref: 'Record'}],
+  }
+  $scope.selectRecord = function(selectedRecord){
+    $scope.desiredRecord=selectedRecord
   };
+  $scope.selectMyRecord = function(myRecord){
+    console.log(myRecord);
+    $scope.selectedRecord=myRecord;
+  }
 
   $scope.click = function(propID) {
     $state.go('tab.manager');

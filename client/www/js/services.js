@@ -44,6 +44,9 @@ angular.module('starter.services', [])
   this.getRecords = function(){
     return $http.get("http://localhost:1337/record");
   }
+  this.requestSwap = function(data) {
+    return $http.post('http://localhost:1337/trade', data);
+  }
 })
 
 .service('accountService', function($http){
