@@ -25,6 +25,10 @@
       </ion-list>
     </ion-content>
     <script id="templates/modal.html" type="text/ng-template">
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9af6e7d843da399f3ed45f29f9f03dbedda25fa5
       <ion-modal-view>
         <ion-header-bar class="bar bar-header bar-positive">
           <h1 class="title">Trade Offer</h1>
@@ -48,6 +52,12 @@
       </ion-modal-view>
     </script>
 
+<<<<<<< HEAD
+    <ion-list>
+      <ion-item ng-repeat="record in items">
+        <ion-option-button class="button-positive" ng-click="selectRecord(record); modal.show();">Ask To Trade</ion-option-button>
+        Hello, {{item}}!
+=======
     <button class="button button-block button-assertive" ng-click="logout()">Logout</button>
 
 
@@ -67,6 +77,7 @@
         </div>                
       </div>              
     </div>
+>>>>>>> 9af6e7d843da399f3ed45f29f9f03dbedda25fa5
       </ion-item>
     </ion-list>
   </ion-content>
