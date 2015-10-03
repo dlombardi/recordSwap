@@ -42,7 +42,7 @@ angular.module('starter.services', [])
 .service('swapService', function($http){
   this.current = "";
   this.getRecords = function(){
-    return $http.get("http://localhost:1337/records");
+    return $http.get("http://localhost:1337/record");
   }
 })
 

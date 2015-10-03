@@ -53,11 +53,11 @@
       </ion-modal-view> -->
 <h1 class="Title">Trade Offers</h1>
       <div class="list media">
-  <a class="item item-thumbnail-left" href="#"  ng-repeat="record in items" ng-click="click(record)">
+  <a class="item item-thumbnail-left" href="#"  ng-repeat="record in items">
     <div class="table">
       <div class="row">
         <div class="col-md-4">
-          <img src="{{record.picture}}">
+          <img src="{{record.picture}}" class="media-object">
         </div>
         <div class="col-md-8">
           <h4>{{record.recordname}} by {{record.artist}}</h4>

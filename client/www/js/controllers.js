@@ -28,10 +28,10 @@ angular.module('starter.controllers', [])
     })
   }
 
-  accountService.get($scope.user._id)
-  .success(function(data){
-    $scope.stache = data.records;
-  })
+  // accountService.get($scope.user._id)
+  // .success(function(data){
+  //   $scope.stache = data.records;
+  // })
 
 
   $scope.logout = function(){
@@ -72,35 +72,35 @@ angular.module('starter.controllers', [])
     $scope.items = data;
   });
 
-  $scope.items = [
-  {
-    owner: "Maru",
-    picture: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150',
-    recordname: "New Maps of Hell",
-    artist: "Bad Religion",
-    genre: "Punk Rock",
-    condition: "Good",
-    isAvailable: "Yes"
-  },
-  {
-    owner: "Maru",
-    picture: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150',
-    recordname: "New Maps of Hell",
-    artist: "Bad Religion",
-    genre: "Punk Rock",
-    condition: "Good",
-    isAvailable: "Yes"
-  },
-  {
-    owner: "Maru",
-    picture: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150',
-    recordname: "New Maps of Hell",
-    artist: "Bad Religion",
-    genre: "Punk Rock",
-    condition: "Good",
-    isAvailable: "Yes"
-  }
-  ];
+  // $scope.items = [
+  // {
+  //   owner: "Maru",
+  //   picture: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150',
+  //   recordname: "New Maps of Hell",
+  //   artist: "Bad Religion",
+  //   genre: "Punk Rock",
+  //   condition: "Good",
+  //   isAvailable: "Yes"
+  // },
+  // {
+  //   owner: "Maru",
+  //   picture: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150',
+  //   recordname: "New Maps of Hell",
+  //   artist: "Bad Religion",
+  //   genre: "Punk Rock",
+  //   condition: "Good",
+  //   isAvailable: "Yes"
+  // },
+  // {
+  //   owner: "Maru",
+  //   picture: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150',
+  //   recordname: "New Maps of Hell",
+  //   artist: "Bad Religion",
+  //   genre: "Punk Rock",
+  //   condition: "Good",
+  //   isAvailable: "Yes"
+  // }
+  // ];
 
   $scope.selectRecord = function(record){
 
