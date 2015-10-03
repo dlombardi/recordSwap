@@ -28,14 +28,26 @@ angular.module('starter.controllers', [])
     })
   }
 
+<<<<<<< HEAD
   $scope.deleteRecord = function(record){
-    console.log("I'm in")
-    console.log(record);
-    accountService.deleteRecord({"rid": record._id})
+    record.user = $scope.user._id
+    accountService.deleteRecord(record)
     .success(function(data){
-      console.log(data);
+      console.log("data");
+      record = {};
     });
   }
+
+  accountService.getUserRecords($scope.user._id)
+  .success(function(data){
+    $scope.stache = data.records;
+  })
+=======
+  // accountService.get($scope.user._id)
+  // .success(function(data){
+  //   $scope.stache = data.records;
+  // })
+>>>>>>> 9af6e7d843da399f3ed45f29f9f03dbedda25fa5
 
 
   $scope.logout = function(){
@@ -58,14 +70,6 @@ angular.module('starter.controllers', [])
     $scope.modal = modal;
   });
 
-  $scope.togglePendingTrades = function(){
-    if($scope.pendingTrades){
-      $scope.pendingTrades = false;
-    } else {
-      $scope.pendingTrades = true;
-    }
-  }
-
 
 
   $scope.createContact = function(u) {
@@ -81,36 +85,42 @@ angular.module('starter.controllers', [])
 
   swapService.getRecords()
   .success(function(data){
-    var records = data.slice();
-    for (var i= records.length-1; i>=0; i--){
-      if (records[i].user === $scope.user._id) {
-        var removed = records.splice(i, 1)
-      }
-    }
-    $scope.items = records;
+    $scope.items = data;
   });
 
-  $scope.requestTrade = function(myRecord, desiredRecord) {
-    console.log(myRecord);
-    console.log(desiredRecord);
-    var swap= {};
-    swap.sender = myRecord.user;
-    swap.receiver = desiredRecord.user;
-    swap.senderRecords = [myRecord._id];
-    swap.receiverRecords = [desiredRecord._id];
-    console.log(swap);
-    swapService.requestSwap(swap).success(function(data){
-      console.log(data)
-    })
+  // $scope.items = [
+  // {
+  //   owner: "Maru",
+  //   picture: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150',
+  //   recordname: "New Maps of Hell",
+  //   artist: "Bad Religion",
+  //   genre: "Punk Rock",
+  //   condition: "Good",
+  //   isAvailable: "Yes"
+  // },
+  // {
+  //   owner: "Maru",
+  //   picture: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150',
+  //   recordname: "New Maps of Hell",
+  //   artist: "Bad Religion",
+  //   genre: "Punk Rock",
+  //   condition: "Good",
+  //   isAvailable: "Yes"
+  // },
+  // {
+  //   owner: "Maru",
+  //   picture: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150',
+  //   recordname: "New Maps of Hell",
+  //   artist: "Bad Religion",
+  //   genre: "Punk Rock",
+  //   condition: "Good",
+  //   isAvailable: "Yes"
+  // }
+  // ];
 
-  }
-  $scope.selectRecord = function(selectedRecord){
-    $scope.desiredRecord=selectedRecord
+  $scope.selectRecord = function(record){
+
   };
-  $scope.selectMyRecord = function(myRecord){
-    console.log(myRecord);
-    $scope.selectedRecord=myRecord;
-  }
 
   $scope.click = function(propID) {
     $state.go('tab.manager');
@@ -121,12 +131,6 @@ angular.module('starter.controllers', [])
     storageService.removeItem("user");
     $state.go("login");
   };
-
-  $scope.confirmTrade = function(selectedRecord, desiredRecord){
-    console.log("selectedRecord:", selectedRecord);
-    console.log("desiredRecord:", desiredRecord);
-  };
-
 })
 
 
@@ -147,7 +151,63 @@ angular.module('starter.controllers', [])
 
 })
 //!user.isTenant && !applied || (!user.isAdmin || !user.isManager)
+.controller('aptDetailCtrl', function($scope, userService, storageService) {
+  $scope.applied = false;
+  $scope.user = userService.user;
+  $scope.user = storageService.load("user");
+  $scope.apply = function() {
+    userService.apply({
+      aid: aptService.current,
+      uid: userService.user._id
+    })
+    .success(function(data, status) {
+      $scope.applied = true;
+      console.log(data);
+    })
+  }
+  if (aptService.apartments.length > 0) {
+    findApt(aptService.current)
+    console.log("current", aptService.current);
+  } else {
+    aptService.get()
+    .success(function(data, status) {
+      aptService.apartments = data;
+      console.log(data);
+      findApt(userService.user.apartmentNum);
+    })
+  };
+  $scope.checkButton = function() {
+    if (userService.user.isTenant || $scope.applied || userService.user.isManager) {
+      return false;
+    } else {
+      return true
+    }
+  }
+  userService.getApplicants(aptService.current)
+  .success(function(data, status) {
+    $scope.applicants = data;
+  })
+  $scope.acceptApplicant = function(applicant) {
+    userService.acceptApplicant({
+      aid: aptService.current,
+      uid: applicant._id
+    })
+    .success(function() {
+      $scope.info.tenants.push(applicant);
+      var i = $scope.applicants.indexOf(applicant);
+      $scope.applicants.splice(i, 1);
+    })
+  }
 
+  function findApt(id) {
+    aptService.apartments.forEach(function(apt) {
+      console.log(apt._id, id);
+      if (apt._id === id) {
+        $scope.info = apt;
+      }
+    })
+  }
+})
 
 .controller('loginCtrl', function($scope, userService, $state, storageService) {
   $scope.data = {};
