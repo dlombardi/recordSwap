@@ -50,6 +50,9 @@ angular.module('starter.services', [])
   this.getUserRecords = function(uid){
     return $http.get("http://localhost:1337/user?uid=" + uid);
   }
+  this.deleteRecord = function(data){
+    return $http.get("http://localhost:1337/deleteRecord", data);
+  }
 
   this.addRecord = function(data){
     return $http.post("http://localhost:1337/addRecord", data)
