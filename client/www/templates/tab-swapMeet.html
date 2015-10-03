@@ -28,16 +28,38 @@
         </ion-item>
       </ion-list>
     </ion-content>
-  </a>
-</div>
-<button class="button button-block button-assertive" ng-click="logout()">Logout</button>
+    <script id="templates/modal.html" type="text/ng-template">
+
+      <ion-modal-view>
+        <ion-header-bar class="bar bar-header bar-positive">
+          <h1 class="title">Trade Offer</h1>
+          <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+        <div class="list">
+
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Personal Stache
+          </div>
+          <select>
+            <option ng-repeat="item in records">{{item.name}}</option>
+            <option>red</option>
+          </select>
+        </label>
+
+        </div>
+        </ion-content>
+      </ion-modal-view>
+    </script>
+
+    <button class="button button-block button-assertive" ng-click="logout()">Logout</button>
 
 
     <ion-list>
       <ion-item ng-repeat="record in items">
-        <ion-option-button class="button-positive" ng-click="selectRecord(record); model.show();">Ask To Trade</ion-option-button>
-        <!-- Hello, {{item}}! -->
-    <div class="table">
+        <ion-option-button class="button-positive" ng-click="selectRecord(record); modal.show();">Ask To Trade</ion-option-button>
+        <div class="table">
       <div class="row">
         <div class="col-md-4">
           <img src="{{record.picture}}">
@@ -54,21 +76,3 @@
     </ion-list>
   </ion-content>
 </ion-view>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
