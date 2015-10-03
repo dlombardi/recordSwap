@@ -61,6 +61,33 @@ angular.module('starter.controllers', [])
     $scope.items = data;
   });
 
+  $scope.items = [
+  {
+    owner: "Maru",
+    recordname: "New Maps of Hell",
+    artist: "Bad Religion", 
+    genre: "Punk Rock",
+    condition: "Good",
+    isAvailable: "Yes"
+  },
+  {
+    owner: "Maru",
+    recordname: "New Maps of Hell",
+    artist: "Bad Religion", 
+    genre: "Punk Rock",
+    condition: "Good",
+    isAvailable: "Yes"
+  },
+  {
+    owner: "Maru",
+    recordname: "New Maps of Hell",
+    artist: "Bad Religion", 
+    genre: "Punk Rock",
+    condition: "Good",
+    isAvailable: "Yes"
+  }
+  ];
+
   $scope.selectRecord = function(record){
 
   }
