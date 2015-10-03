@@ -72,6 +72,7 @@ module.exports = function (app) {
       });
     });
   });
+
   app.delete('/deleteRecord', function(req, res){
     if(req.body.rid === undefined) {
       req.body.rid = req.query.rid;
@@ -94,6 +95,12 @@ module.exports = function (app) {
       res.send("Record successfully removed!");
     });
   });
+
+  app.get('/trade', function(req, res){
+    Trade.find({}, function(err,trades){
+      res.send(trades);
+    })
+  })
 
 
   app.get('/record', function(req, res){
@@ -156,9 +163,9 @@ module.exports = function (app) {
               record.save();
               console.log("Sender Records", trade.sender.records)
               trade.sender.records = trade.sender.records.filter(function(rec) {
-                
+
                 if(rec == record._id.toString()) {
-                  
+
                   return false;
                 }
                 return true;

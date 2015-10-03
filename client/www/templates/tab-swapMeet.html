@@ -12,8 +12,16 @@
       </ion-slide>
     </ion-slide-box>
 
+    <ion-list ng-show="pendingTrades">
+      <h1>yes</h1>
+      <ion-item ng-repeat="contact in contacts">
+        {{contact.name}}
+      </ion-item>
+    </ion-list>
+
 
     <ion-header-bar class="bar-positive">
+      <button ng-click="togglePendingTrades()" class="button button-balanced button-energized">Pending Trades</button>
       <h1 class="title">Trade Records</h1>
     </ion-header-bar>
     <ion-content>

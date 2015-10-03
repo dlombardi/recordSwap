@@ -47,6 +47,9 @@ angular.module('starter.services', [])
   this.tradeRecords = function(){
     console.log();
   };
+  this.viewTrades = function() {
+    return $http.get('http://localhost:1337/trade');
+  }
 })
 
 .service('accountService', function($http){

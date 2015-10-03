@@ -63,6 +63,14 @@ angular.module('starter.controllers', [])
     $scope.modal = modal;
   });
 
+  $scope.togglePendingTrades = function(){
+    if($scope.pendingTrades){
+      $scope.pendingTrades = false;
+    } else {
+      $scope.pendingTrades = true;
+    }
+  }
+
 
 
   $scope.createContact = function(u) {
