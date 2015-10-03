@@ -1,7 +1,6 @@
 var passport = require('passport');
 var Account = require('../models/user');
-var Apartment = require('../models/apartment');
-var Property = require('../models/property')
+var Record = require('../models/record')
 
 module.exports = function (app) {
 
@@ -57,63 +56,45 @@ module.exports = function (app) {
       res.send("pong!", 200);
   });
 
-  /*user routes*/
 
-  // app.get('/tenantLookup', function(req, res){
-  //
-  // });
-
-/*admin add properties
-admin remove properties
-
-admin add managers
-admin remove managers
-
-managers add and remove apartments from and to their properties*/
-
-
-  /*tenant routes*/
-
-
-
-  /*Manager routes*/
-
-  /*add apartment*/
-  app.post('/addApartment', function(req, res){
-    Property.findById(req.body.property, function(err, property){
-      console.log(property);
-      var apartment = new Apartment(req.body);
-      console.log(apartment);
-      property.apartments.push(apartment);
-      property.save();
-      apartment.save(function(err, savedApartment){
+  app.post('/addRecord', function(req, res){
+    Account.findById(req.body.user, function(err, user){
+      console.log("adding record", req.body);
+      var record = new Record(req.body);
+      user.records.push(record);
+      user.save();
+      record.save(function(err, savedApartment){
         res.send(savedApartment);
       });
     });
   });
+  // app.delete('/deleteRecord', function(req, res){
+  //   User.findById(req.body.uid, function(err, user){
+  //     Record.findById(user.property, function(err, record){
+  //       user.records.forEach(function(apartments, idx){
+  //         if(apartments._id.toString() === req.body.aid.toString()){
+  //           property.apartments.splice(idx, 1);
+  //         }
+  //       });
+  //       property.save();
+  //     });
+  //   });
+  //   Apartment.findByIdAndRemove(req.body.aid, function(err){
+  //     res.send();
+  //   });
+  // });
 
-  /*delete apartment*/
-  app.delete('/deleteApartment', function(req, res){
-    Apartment.findById(req.body.aid, function(err, apartment){
-      Property.findById(apartment.property, function(err, property){
-        property.apartments.forEach(function(apartments, idx){
-          if(apartments._id.toString() === req.body.aid.toString()){
-            property.apartments.splice(idx, 1);
-          }
-        });
-        property.save();
+  app.get('/record', function(req, res){
+    if(req.query.rid !== undefined) {
+      Records.findById(req.query.rid, function(err, record){
+        res.send(record);
       });
-    });
-    Apartment.findByIdAndRemove(req.body.aid, function(err){
-      res.send();
-    });
-  });
-
-  /*get all apartment*/
-  app.get('/apartment', function(req, res){
-    Apartment.find({}, function(err, apartments){
-      res.send(apartments);
-    })
+    }
+    else {
+      Record.find({}, function(err, records){
+        res.send(records);
+      })
+    }
   })
 
   app.post('/pendingApproval', function(req, res){
@@ -127,65 +108,6 @@ managers add and remove apartments from and to their properties*/
     });
   });
 
-  app.get('/showApplicants', function(req, res){
-    Apartment.findById(req.query.aid, function(err, apartment){
-      res.send(apartment.applicants);
-    });
-  });
-
-  /*add a tenant*/
-  app.post('/addTenant', function(req, res){
-    Account.findById(req.body.uid, function(err, user){
-      Apartment.findById(req.body.aid, function(err, apartment){
-        apartment.applicants.forEach(function(applicant, idx){
-          if(applicant._id.toString() === req.body.uid){
-            apartment.applicants.splice(idx, 1);
-            apartment.save();
-            user.isTenant = false;
-            user.save();
-          }
-        });
-        apartment.tenants.push(user);
-        apartment.save();
-        res.send("ok");
-      });
-    });
-  });
-
-
-  /*delete a tenant*/
-  app.delete('/deleteTenant', function(req, res){
-    Apartment.findById(req.body.aid, function(err, apartment){
-      Account.findById(req.body.uid, function(err, user){
-        if(user){
-          console.log(apartment.tenants);
-          apartment.tenants.forEach(function(tenant, idx){
-            if(tenant._id.toString() === user._id.toString() || tenant._id.toString() === undefined){
-              apartment.tenants.splice(idx, 1);
-            }
-          });
-          apartment.save();
-        }
-      });
-    });
-  });
-
-  app.get('/finances', function(req, res){
-    var sum = 0;
-    Property.find(req.body.pid, function(err, property){
-      Apartment.find({}, function(err, apartments){
-        apartments.forEach(function(apartment){
-          if(apartment.tenants.length > 0){
-            sum += apartment.rent;
-          }
-        });
-      });
-    });
-    res.send(sum);
-  });
-
-
-
   /*admin routes*/
 
   /*add a manager*/
@@ -196,13 +118,6 @@ managers add and remove apartments from and to their properties*/
       user.save();
     });
   });
-
-  // app.post('removeManager', function(req, res){
-  //   Account.findById(req.body.uid, funciton(err, user){
-  //     user.isManager = false;
-  //     user.save();
-  //   });
-  // });
 
   app.post('/addManager', function(req, res){
     Account.findById(req.body.uid, function(err, user){
@@ -225,36 +140,10 @@ managers add and remove apartments from and to their properties*/
    });
  });
 
- /*add a property*/
-
- app.post('/addProperty', function(req, res){
-   var property = new Property(req.body);
-   property.save(function(err, savedProperty){
-     console.log(err);
-     res.send(savedProperty);
-     console.log(savedProperty);
-   });
- });
-
- /*delete a property*/
-
- app.delete('/deleteProperty', function(req, res){
-   Property.findByIdAndRemove(req.body.pid, function(err, deletedProperty){
-     res.send(deletedProperty);
-   });
- });
 
  app.get('/showUsers', function(req, res){
    Account.find({}, function(err, users){
      res.send(users);
    })
  });
-
- app.get('/showProperties', function(req, res){
-   Property.find({}, function(err, properties){
-     res.send(properties);
-   });
- });
-
-
 };
