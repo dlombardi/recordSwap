@@ -73,6 +73,7 @@ module.exports = function (app) {
     });
   });
   app.delete('/deleteRecord', function(req, res){
+    console.log(req.body);
     Record.findById(req.body.rid, function(err, record) {
       Account.findById(record.user, function(err, user){
         user.records.splice(user.records.indexOf(record), 1);
@@ -109,14 +110,14 @@ module.exports = function (app) {
   app.post('/acceptTrade', function(req, res){
     Trade.findById(req.body.tid, function(err, trade) {
       Trade.populate(trade, [
-        {path: "sender"}, 
-        {path: "receiver"}, 
+        {path: "sender"},
+        {path: "receiver"},
         {path: "receiverRecords"},
         {path: "senderRecords"}],
         function(err, popTrade) {
           Account.update(
-          {_id: trade.sender}, 
-          {$pushAll: {records: trade.receiverRecords}}, 
+          {_id: trade.sender},
+          {$pushAll: {records: trade.receiverRecords}},
           function(err) {
             popTrade.receiverRecords.forEach(function(record) {
               record.user = trade.sender._id;
@@ -125,8 +126,8 @@ module.exports = function (app) {
             });
           });
         Account.update(
-          {_id: trade.receiver}, 
-          {$pushAll: {records: trade.senderRecords}}, 
+          {_id: trade.receiver},
+          {$pushAll: {records: trade.senderRecords}},
           function(err) {
             popTrade.senderRecords.forEach(function(record) {
               record.user = trade.receiver._id;

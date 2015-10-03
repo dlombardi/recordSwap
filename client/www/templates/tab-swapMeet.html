@@ -47,18 +47,15 @@
       </ion-modal-view>
     </script>
 
-    <button class="button button-block button-assertive" ng-click="logout()">Logout</button>
-
-
     <ion-list>
       <ion-item ng-repeat="record in items">
         <ion-option-button class="button-positive" ng-click="selectRecord(record); modal.show();">Ask To Trade</ion-option-button>
         <div class="table">
       <div class="row">
-        <div class="col-md-4">
+        <div>
           <img src="{{record.picture}}">
         </div>
-        <div class="col-md-8">
+        <div>
           <h4 ng-model="desiredRecord">{{record.recordname}} by {{record.artist}}</h4>
           <p>Genre: {{record.genre}}</p>
           <p>Condition: {{record.condition}}</p>
@@ -68,5 +65,7 @@
     </div>
       </ion-item>
     </ion-list>
+
+  <button class="button button-block button-assertive" ng-click="logout()">Logout</button>
   </ion-content>
 </ion-view>

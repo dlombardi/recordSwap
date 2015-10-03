@@ -29,11 +29,11 @@ angular.module('starter.controllers', [])
   }
 
   $scope.deleteRecord = function(record){
-    record.user = $scope.user._id
-    accountService.deleteRecord(record)
+    console.log("I'm in")
+    console.log(record);
+    accountService.deleteRecord({"rid": record._id})
     .success(function(data){
-      console.log("data");
-      record = {};
+      console.log(data);
     });
   }
 
@@ -121,63 +121,7 @@ angular.module('starter.controllers', [])
 
 })
 //!user.isTenant && !applied || (!user.isAdmin || !user.isManager)
-.controller('aptDetailCtrl', function($scope, userService, storageService) {
-  $scope.applied = false;
-  $scope.user = userService.user;
-  $scope.user = storageService.load("user");
-  $scope.apply = function() {
-    userService.apply({
-      aid: aptService.current,
-      uid: userService.user._id
-    })
-    .success(function(data, status) {
-      $scope.applied = true;
-      console.log(data);
-    })
-  }
-  if (aptService.apartments.length > 0) {
-    findApt(aptService.current)
-    console.log("current", aptService.current);
-  } else {
-    aptService.get()
-    .success(function(data, status) {
-      aptService.apartments = data;
-      console.log(data);
-      findApt(userService.user.apartmentNum);
-    })
-  };
-  $scope.checkButton = function() {
-    if (userService.user.isTenant || $scope.applied || userService.user.isManager) {
-      return false;
-    } else {
-      return true
-    }
-  }
-  userService.getApplicants(aptService.current)
-  .success(function(data, status) {
-    $scope.applicants = data;
-  })
-  $scope.acceptApplicant = function(applicant) {
-    userService.acceptApplicant({
-      aid: aptService.current,
-      uid: applicant._id
-    })
-    .success(function() {
-      $scope.info.tenants.push(applicant);
-      var i = $scope.applicants.indexOf(applicant);
-      $scope.applicants.splice(i, 1);
-    })
-  }
 
-  function findApt(id) {
-    aptService.apartments.forEach(function(apt) {
-      console.log(apt._id, id);
-      if (apt._id === id) {
-        $scope.info = apt;
-      }
-    })
-  }
-})
 
 .controller('loginCtrl', function($scope, userService, $state, storageService) {
   $scope.data = {};

@@ -49,8 +49,16 @@
     </ion-list>
     <ion-list>
       <ion-item href="#" ng-repeat="record in stache">
-          Item 1
-          <ion-option-button class="button-assertive icon ion-trash-a"></ion-option-button>
+        <div>
+          <img src="{{record.picture}}">
+        </div>
+        <div>
+          <h4 ng-model="record">{{record.recordname}} by {{record.artist}}</h4>
+          <p>Genre: {{record.genre}}</p>
+          <p>Condition: {{record.condition}}</p>
+          <p>Available: {{record.isAvailable}}</p>
+        </div>
+        <ion-option-button ng-click="deleteRecord(record)" class="button-assertive icon ion-trash-a"></ion-option-button>
       </ion-item>
         <!-- <ion-item show-delete="shouldShowDelete">
         <a class="item item-thumbnail-left" href="#" ng-repeat="record in stache">
