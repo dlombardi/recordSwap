@@ -75,6 +75,7 @@ angular.module('starter.controllers', [])
   $scope.items = [
   {
     owner: "Maru",
+    picture: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150',
     recordname: "New Maps of Hell",
     artist: "Bad Religion",
     genre: "Punk Rock",
@@ -83,6 +84,7 @@ angular.module('starter.controllers', [])
   },
   {
     owner: "Maru",
+    picture: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150',
     recordname: "New Maps of Hell",
     artist: "Bad Religion",
     genre: "Punk Rock",
@@ -91,6 +93,7 @@ angular.module('starter.controllers', [])
   },
   {
     owner: "Maru",
+    picture: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150',
     recordname: "New Maps of Hell",
     artist: "Bad Religion",
     genre: "Punk Rock",
@@ -101,12 +104,17 @@ angular.module('starter.controllers', [])
 
   $scope.selectRecord = function(record){
 
-  }
+  };
 
   $scope.click = function(propID) {
     $state.go('tab.manager');
     propertyService.current = propID;
-  }
+  };
+
+  $scope.logout = function(){
+    storageService.removeItem("user");
+    $state.go("login");
+  };
 })
 
 
