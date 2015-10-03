@@ -9,7 +9,7 @@ var recordSchema = new Schema({
   recordname: {type: String, require: true},
   condition: {type: String, require: true},
   picture: {type: String, require: true},
-  isAvailable: {type: Boolean, require: true}
+  isAvailable: {type: Boolean, default: true}
 });
 
 var Record = Mongoose.model("Record", recordSchema);

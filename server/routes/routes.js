@@ -80,14 +80,15 @@ module.exports = function (app) {
     });
   });
 
+
   app.get('/record', function(req, res){
     if(req.query.rid !== undefined) {
-      Records.findById(req.query.rid, function(err, record){
+      Record.findById(req.query.rid, function(err, record){
         res.send(record);
       });
     }
     else {
-      Record.find({}, function(err, records){
+      Record.find({isAvailable: true}, function(err, records){
         res.send(records);
       })
     }
