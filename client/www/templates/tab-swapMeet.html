@@ -32,28 +32,38 @@
       </ion-list>
     </ion-content>
     <script id="templates/modal.html" type="text/ng-template">
-      <ion-modal-view>
-        <ion-header-bar class="bar bar-header bar-positive">
-          <h1 class="title">Trade Offer</h1>
-          <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
-        </ion-header-bar>
-        <ion-content class="padding">
-        <div class="list">
+        <ion-modal-view>
+          <ion-header-bar class="bar bar-header bar-positive">
+            <h1 class="title">Trade Offer for {{desiredRecord.recordname}}</h1>
+            <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
+          </ion-header-bar>
+          <ion-content class="padding">
+          <div class="list">
 
-        <label class="item item-input item-select">
-          <div class="input-label">
-            Personal Stache
+          <label class="item item-input item-select">
+            <div class="input-label">
+              Personal Stache
+            </div>
+            <select ng-options='item.recordname for item in user.records' ng-model='myRecord'>
+
+            </select>
+          </label>
+               <div class="row">
+                <div class="col-md-4">
+                  <img src="{{myRecord.picture}}">
+                </div>
+                <div class="col-md-8">
+                  <h4>{{myRecord.recordname}} by {{myRecord.artist}}</h4>
+                  <p>Genre: {{myRecord.genre}}</p>
+                  <p>Condition: {{myRecord.condition}}</p>
+                  <p>Available: {{myRecord.isAvailable}}</p>
+                </div>
+              </div>
+            <button class="button button-primary" ng-click="requestTrade(myRecord, desiredRecord)">Trade {{myRecord.recordname}}</button>
           </div>
-          <select ng-model="selectedRecord">
-            <option ng-repeat="item in user.records">{{item.recordname}}</option>
-          </select>
-        </label>
-          <button class="button button-clear button-primary" ng-click="confirmTrade(selectedRecord, desiredRecord)">Trade {{selectedRecord}}</button>
-
-        </div>
-        </ion-content>
-      </ion-modal-view>
-    </script>
+          </ion-content>
+        </ion-modal-view>
+      </script>
 
     <ion-list>
       <ion-item ng-repeat="record in items">
