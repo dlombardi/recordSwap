@@ -40,8 +40,18 @@
             
           </select>
         </label>
-          <button class="button button-clear button-primary" ng-click="requestTrade(myRecord, desiredRecord)">Trade {{myRecord.recordname}}</button>
-
+             <div class="row">
+              <div class="col-md-4">
+                <img src="{{myRecord.picture}}">
+              </div>
+              <div class="col-md-8">
+                <h4>{{myRecord.recordname}} by {{myRecord.artist}}</h4>
+                <p>Genre: {{myRecord.genre}}</p>
+                <p>Condition: {{myRecord.condition}}</p>
+                <p>Available: {{myRecord.isAvailable}}</p>                  
+              </div>                
+            </div>     
+          <button class="button button-primary" ng-click="requestTrade(myRecord, desiredRecord)">Trade {{myRecord.recordname}}</button>
         </div>
         </ion-content>
       </ion-modal-view>

@@ -87,11 +87,12 @@ angular.module('starter.controllers', [])
     console.log(swap);
     swapService.requestSwap(swap).success(function(data){
       console.log(data)
-    })
+      $scope.modal.hide();
+    });
 
   }
   $scope.selectRecord = function(selectedRecord){
-    $scope.desiredRecord=selectedRecord
+    $scope.desiredRecord=selectedRecord;
   };
   $scope.selectMyRecord = function(myRecord){
     console.log(myRecord);
