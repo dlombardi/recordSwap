@@ -13,7 +13,6 @@
     </ion-slide-box>
 
 
-    <button class="button button-block button-assertive" ng-click="logout()">Logout</button>
     <ion-header-bar class="bar-positive">
       <h1 class="title">Trade Records</h1>
     </ion-header-bar>
@@ -38,8 +37,7 @@
             Personal Stache
           </div>
           <select>
-            <option ng-repeat="item in records">{{item.name}}</option>
-            <option>red</option>
+            <option ng-repeat="item in user.records">{{item.recordname}}</option>            
           </select>
         </label>
 
