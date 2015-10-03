@@ -116,6 +116,12 @@ module.exports = function (app) {
 
   // After trading item delete all pending trades
   app.get('/trade', function(req, res){
+    if(req.query.uid !== undefined) {
+      Trade.find({receiver: req.query.uid}, function(err, trades) {
+        res.send(trades);
+        return;
+      });
+    }
     Trade.find({}, function(err,trades){
       res.send(trades);
     })
