@@ -1,0 +1,18 @@
+<ion-view view-title={{record}}>
+<ion-content class="padding">
+
+<div class="list">
+
+  <a class="item item-thumbnail-left" href="#"  ng-repeat="record in records" ng-click="click(record)">
+    <img src="{{record.picture}}">
+    <h2>{{record.recordname}} by {{record.artist}}</h2>
+    <p>Condition: {{record.condition}}</p>
+    <p>Available: {{record.isAvailable}}</p>
+  </a>
+
+
+
+</div>
+
+</ion-content>
+</ion-view>

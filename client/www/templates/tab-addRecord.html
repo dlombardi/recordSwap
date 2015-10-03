@@ -1,0 +1,28 @@
+<ion-view view-title="Add Record">
+  <ion-content>
+    <ion-list>
+      <ul class="list">
+        <li class="item">Username: {{user.username}}</li>
+      </ul>
+    </ion-list>
+    <ion-list>
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="text" placeholder="Artist" ng-model="record.artist">
+        </label>
+        <label class="item item-input">
+          <input type="text" placeholder="Record Name" ng-model="record.recordname">
+        </label>
+        <label class="item item-input">
+          <input type="text" placeholder="Picture URL" ng-model="record.picture">
+        </label>
+        <label class="item item-input">
+          <input type="text" placeholder="Available?" ng-model="record.isAvailable">
+        </label>
+        <button class="button button-block button-positive" ng-click="addrecord()">Add Record</button>
+      </div>
+    </ion-list>
+    <button class="button button-block button-assertive" ng-click="goProfile()">Go Back</button>
+    <!-- goProfile takes user to profile. -->
+  </ion-content>
+</ion-view>

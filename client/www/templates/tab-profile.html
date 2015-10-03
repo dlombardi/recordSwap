@@ -1,0 +1,23 @@
+<ion-view view-title="Profile">
+  <ion-content>
+    <ion-list>
+      <ul class="list">
+        <li class="item">Username: {{user.username}}</li>
+
+      </ul>
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Records
+        </div>
+        <select>
+
+          <option ng-selected="$index === 0" ng-repeat="record in records track by $index">{{record.name}}</option>
+        </select>
+      </label>
+
+    
+      <button class="button button-block button-positive" ng-click="goAddRecord()">Add a record</button>
+      <!-- goAddRecord takes user to the add record form -->
+      <button class="button button-block button-assertive" ng-click="logout()">Logout</button>
+  </ion-content>
+</ion-view>
