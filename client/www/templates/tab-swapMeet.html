@@ -13,13 +13,9 @@
     </ion-slide-box>
 
 
-
+    <button class="button button-block button-assertive" ng-click="logout()">Logout</button>
     <ion-header-bar class="bar-positive">
-      <h1 class="title">Contacts</h1>
-      <div class="buttons">
-        <button class="button button-icon ion-compose" ng-click="modal.show()">
-        </button>
-      </div>
+      <h1 class="title">Trade Records</h1>
     </ion-header-bar>
     <ion-content>
       <ion-list>
@@ -28,8 +24,7 @@
         </ion-item>
       </ion-list>
     </ion-content>
-    <!-- //<script id="templates/modal.html" type="text/ng-template"></script> -->
-<!-- 
+    <script id="templates/modal.html" type="text/ng-template">
       <ion-modal-view>
         <ion-header-bar class="bar bar-header bar-positive">
           <h1 class="title">Trade Offer</h1>
@@ -50,41 +45,12 @@
 
         </div>
         </ion-content>
-      </ion-modal-view> -->
-<h1 class="Title">Trade Offers</h1>
-      <div class="list media">
-  <a class="item item-thumbnail-left" href="#"  ng-repeat="record in items" ng-click="click(record)">
-    <div class="table">
-      <div class="row">
-        <div class="col-md-4">
-          <img src="{{record.picture}}">
-        </div>
-        <div class="col-md-8">
-          <h4>{{record.recordname}} by {{record.artist}}</h4>
-          <p>Genre: {{record.genre}}</p>
-          <p>Condition: {{record.condition}}</p>
-          <p>Available: {{record.isAvailable}}</p>                  
-        </div>                
-      </div>              
-    </div>
-
-    <!-- <div class="media-left">
-      <img class="media-object" src="{{record.picture}}" ng-src="{{record.picture}}" alt="...">
-    </div>
-    <div class="media-body">
-      <h4 class="media-heading">{{record.recordname}} by {{record.artist}}</h4>
-          <p>Genre: {{record.genre}}</p>
-          <p>Condition: {{record.condition}}</p>
-          <p>Available: {{record.isAvailable}}</p>                  
-    </div> -->
-  </a>
-</div>
-<button class="button button-block button-assertive" ng-click="logout()">Logout</button>
-    
+      </ion-modal-view>
+    </script>
 
     <ion-list>
-      <ion-item ng-repeat="record in records">
-        <ion-option-button class="button-positive" ng-click="selectRecord(record); model.show();">Ask To Trade</ion-option-button>
+      <ion-item ng-repeat="record in items">
+        <ion-option-button class="button-positive" ng-click="selectRecord(record); modal.show();">Ask To Trade</ion-option-button>
         Hello, {{item}}!
       </ion-item>
     </ion-list>

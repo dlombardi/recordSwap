@@ -28,7 +28,16 @@ angular.module('starter.controllers', [])
     })
   }
 
-  accountService.get($scope.user._id)
+  $scope.deleteRecord = function(record){
+    record.user = $scope.user._id
+    accountService.deleteRecord(record)
+    .success(function(data){
+      console.log("data");
+      record = {};
+    });
+  }
+
+  accountService.getUserRecords($scope.user._id)
   .success(function(data){
     $scope.stache = data.records;
   })

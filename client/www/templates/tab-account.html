@@ -1,6 +1,6 @@
 <ion-view view-title="Account">
   <ion-content>
-  <button class="button button-block button-assertive" ng-click="logout()">Logout</button>
+    <button class="button button-block button-assertive" ng-click="logout()">Logout</button>
     <ion-list>
       <ul class="list">
         <li class="item">Username: {{user.username}}</li>
@@ -47,14 +47,19 @@
       </div>
 
     </ion-list>
-    <div class="list list-inset">
-      <ion-list>
-        <a class="item item-thumbnail-left" href="#" ng-repeat="record in stache" ng-click="click(makeManager)">
-          <img src="{{user.picture}}">
+    <ion-list>
+      <ion-item href="#" ng-repeat="record in stache">
+          Item 1
+          <ion-option-button class="button-assertive icon ion-trash-a"></ion-option-button>
+      </ion-item>
+        <!-- <ion-item show-delete="shouldShowDelete">
+        <a class="item item-thumbnail-left" href="#" ng-repeat="record in stache">
+          <ion-delete-button class="ion-minus-circled" ng-click="deleteRecord(record)"></ion-delete-button>
+          <img src="{{record.picture}}">
           <h2>{{record.recordname}}</h2>
           <h2>{{record.artist}}</h2>
         </a>
-      </ion-list>
-    </div>
+        </ion-item> -->
+    </ion-list>
   </ion-content>
 </ion-view>
