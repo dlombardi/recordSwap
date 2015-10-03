@@ -68,8 +68,8 @@ module.exports = function (app) {
       var record = new Record(req.body);
       user.records.push(record);
       user.save();
-      record.save(function(err, savedApartment){
-        res.send(savedApartment);
+      record.save(function(err, record){
+        res.send(record);
       });
     });
   });
@@ -103,13 +103,14 @@ module.exports = function (app) {
   // After trading item delete all pending trades
   app.post('/trade', function(req, res){
     var trade = new Trade(req.body);
+    console.log(req.body);
     trade.save();
     res.send(trade);
   });
 
   app.post('/acceptTrade', function(req, res){
     Trade.findByIdAndRemove(req.body.tid, function(err, trade) {
-
+      
     });
   });
 

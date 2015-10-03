@@ -8,7 +8,8 @@ var recordSchema = new Schema({
   recordname: {type: String, require: true},
   condition: {type: String, require: true},
   picture: {type: String, require: true},
-  isAvailable: {type: Boolean, default: true}
+  isAvailable: {type: Boolean, default: true},
+  genre: {type: String}
 });
 
 var Record = Mongoose.model("Record", recordSchema);
