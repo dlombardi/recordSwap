@@ -68,21 +68,17 @@ module.exports = function (app) {
       });
     });
   });
-  // app.delete('/deleteRecord', function(req, res){
-  //   User.findById(req.body.uid, function(err, user){
-  //     Record.findById(user.property, function(err, record){
-  //       user.records.forEach(function(apartments, idx){
-  //         if(apartments._id.toString() === req.body.aid.toString()){
-  //           property.apartments.splice(idx, 1);
-  //         }
-  //       });
-  //       property.save();
-  //     });
-  //   });
-  //   Apartment.findByIdAndRemove(req.body.aid, function(err){
-  //     res.send();
-  //   });
-  // });
+  app.delete('/deleteRecord', function(req, res){
+    Record.findById(req.body.rid, function(err, record) {
+      Account.findById(record.user, function(err, user){
+        user.records.splice(user.records.indexOf(record), 1);
+        user.save();
+      });
+    });
+    Record.findByIdAndRemove(req.body.rid, function(err){
+      res.send("Record successfully removed!");
+    });
+  });
 
   app.get('/record', function(req, res){
     if(req.query.rid !== undefined) {
@@ -111,14 +107,6 @@ module.exports = function (app) {
   /*admin routes*/
 
   /*add a manager*/
-
-  app.post('toggleManager', function(req, res){
-    Account.findById(req.body.uid, function(err, user){
-      !user.isManager;
-      user.save();
-    });
-  });
-
   app.post('/addManager', function(req, res){
     Account.findById(req.body.uid, function(err, user){
      Property.findById(req.body.pid, function(err, property){
