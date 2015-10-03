@@ -1,7 +1,7 @@
 var passport = require('passport');
 var Account = require('../models/user');
-var Record = require('../models/record')
-var Trade = require('../models/trade')
+var Record = require('../models/record');
+var Trade = require('../models/trade');
 
 module.exports = function (app) {
 
@@ -12,6 +12,14 @@ module.exports = function (app) {
       console.log(err);
       res.send(users);
       console.log(users);
+    });
+  });
+
+  app.get('/user', function (req, res) {
+    Account.findById(req.query.uid, function(err, account) {
+      Record.populate(account, {path: "records"}, function(err, populated) {
+        res.send(populated);
+      });
     });
   });
 
@@ -40,7 +48,7 @@ module.exports = function (app) {
       Account.findOne({username: req.body.username}, function(err, account){
         Record.populate(account, {path: "records"}, function(err, populated) {
           res.send(populated);
-        })
+        });
       });
   });
 
@@ -87,9 +95,9 @@ module.exports = function (app) {
     else {
       Record.find({isAvailable: true}, function(err, records){
         res.send(records);
-      })
+      });
     }
-  })
+  });
 
 
   // After trading item delete all pending trades
