@@ -1,0 +1,26 @@
+<ion-view view-title={{record}}>
+<ion-content class="padding">
+
+<div class="list">
+  <a class="item item-thumbnail-left" href="#"  ng-repeat="record in records" ng-click="click(record)">
+    <div class="table">
+      <div class="row">
+        <div class="col-md-4">
+          <img src="{{record.picture}}">
+        </div>
+        <div class="col-md-8">
+          <h4>{{record.recordname}} by {{record.artist}}</h4>
+          <p>Genre: {{record.genre}}</p>
+          <p>Condition: {{record.condition}}</p>
+          <p>Available: {{record.isAvailable}}</p>                  
+        </div>                
+      </div>              
+    </div>
+  </a>
+</div>
+
+<button class="button button-block button-assertive" ng-click="goProfile()">Go Back</button>
+<button class="button button-block button-assertive" ng-click="logout()">Logout</button>
+
+</ion-content>
+</ion-view>
