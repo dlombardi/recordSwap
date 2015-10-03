@@ -43,13 +43,17 @@ angular.module('starter.services', [])
   this.current = "";
   this.getRecords = function(){
     return $http.get("http://localhost:1337/record");
+<<<<<<< HEAD
+  };
+  this.tradeRecords = function(){
+    console.log();
+  };
+=======
   }
   this.requestSwap = function(data) {
     return $http.post('http://localhost:1337/trade', data);
   }
-  this.viewTrades = function() {
-    return $http.get('http://localhost:1337/trade');
-  }
+>>>>>>> naomi
 })
 
 .service('accountService', function($http){
@@ -57,7 +61,7 @@ angular.module('starter.services', [])
     return $http.get("http://localhost:1337/user?uid=" + uid);
   }
   this.deleteRecord = function(data){
-    return $http.delete("http://localhost:1337/deleteRecord?rid=" + data.rid);
+    return $http.get("http://localhost:1337/deleteRecord", data);
   }
 
   this.addRecord = function(data){

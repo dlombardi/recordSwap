@@ -37,11 +37,6 @@ angular.module('starter.controllers', [])
     });
   }
 
-  accountService.getUserRecords($scope.user._id)
-  .success(function(data){
-    $scope.stache = data.records;
-  })
-
 
   $scope.logout = function(){
     storageService.removeItem("user");
@@ -94,6 +89,28 @@ angular.module('starter.controllers', [])
     }
     $scope.items = records;
   });
+
+  $scope.requestTrade = function(myRecord, desiredRecord) {
+    console.log(myRecord);
+    console.log(desiredRecord);
+    var swap= {};
+    swap.sender = myRecord.user;
+    swap.receiver = desiredRecord.user;
+    swap.senderRecords = [myRecord._id];
+    swap.receiverRecords = [desiredRecord._id];
+    console.log(swap);
+    swapService.requestSwap(swap).success(function(data){
+      console.log(data)
+    })
+
+  }
+  $scope.selectRecord = function(selectedRecord){
+    $scope.desiredRecord=selectedRecord
+  };
+  $scope.selectMyRecord = function(myRecord){
+    console.log(myRecord);
+    $scope.selectedRecord=myRecord;
+  }
 
   $scope.click = function(propID) {
     $state.go('tab.manager');
