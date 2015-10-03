@@ -1,0 +1,14 @@
+<ion-view view-title="splash" name="splash-view">
+<<<<<<< HEAD
+    <ion-content>
+        <div id="display">
+          <button class="button button-block button-positive expand" ng-click="login()" ng-hide="newOne ===true">Welcome</button>
+=======
+    <ion-content class="padding" id="display">
+        <div>
+          <button class="top button button-block button-positive expand" ui-state="login">Welcome</button>
+          
+>>>>>>> 1839caeaa1a76e413fbd7afe147035c8f5eaa8fc
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,10 @@
+/* Empty. Add your own CSS if you like */
+#display{
+  background-image: url("https://static.pexels.com/photos/356/city-road-street-buildings.jpg");
+  background-size: cover;
+};
+
+.top{
+  top: 50%;
+  position: relative;
+}
