@@ -2,4 +2,4 @@
 .DS_Store
 platforms
 plugins
-www/lib
+client/www/lib
