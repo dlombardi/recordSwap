@@ -73,13 +73,24 @@ module.exports = function (app) {
     });
   });
   app.delete('/deleteRecord', function(req, res){
+    if(req.body.rid === undefined) {
+      req.body.rid = req.query.rid;
+    }
     Record.findById(req.body.rid, function(err, record) {
+      if(err) {
+        res.status(400).send("Record not found!");
+        return;
+      }
       Account.findById(record.user, function(err, user){
         user.records.splice(user.records.indexOf(record), 1);
         user.save();
       });
     });
     Record.findByIdAndRemove(req.body.rid, function(err){
+      if(err) {
+        res.status(400).send("Record not found!");
+        return;
+      }
       res.send("Record successfully removed!");
     });
   });
@@ -88,6 +99,10 @@ module.exports = function (app) {
   app.get('/record', function(req, res){
     if(req.query.rid !== undefined) {
       Record.findById(req.query.rid, function(err, record){
+        if(err) {
+          res.status(400).send("Record not found!");
+          return;
+        }
         res.send(record);
       });
     }
@@ -121,7 +136,15 @@ module.exports = function (app) {
             popTrade.receiverRecords.forEach(function(record) {
               record.user = trade.sender._id;
               record.save();
-              //trade.receiver.records.pull({_id: {$ne: trade.receiver._id}});
+              trade.receiver.records = trade.receiver.records.filter(function(rec) {
+                console.log(rec, record._id.toString());
+                if(rec== record._id.toString()) {
+                  console.log("remove!", rec)
+                  return false;
+                }
+                return true;
+              });
+              trade.receiver.save();
             });
           });
         Account.update(
@@ -131,9 +154,20 @@ module.exports = function (app) {
             popTrade.senderRecords.forEach(function(record) {
               record.user = trade.receiver._id;
               record.save();
-              //trade.sender.records.pull({_id: {$ne: trade.sender._id}});
+              console.log("Sender Records", trade.sender.records)
+              trade.sender.records = trade.sender.records.filter(function(rec) {
+                
+                if(rec == record._id.toString()) {
+                  
+                  return false;
+                }
+                return true;
+              });
+              trade.sender.save();
             });
           });
+          trade.completed = true;
+          trade.save();
           res.send(trade);
         });
       });
