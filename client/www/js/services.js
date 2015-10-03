@@ -43,7 +43,10 @@ angular.module('starter.services', [])
   this.current = "";
   this.getRecords = function(){
     return $http.get("http://localhost:1337/record");
-  }
+  };
+  this.tradeRecords = function(){
+    console.log();
+  };
 })
 
 .service('accountService', function($http){

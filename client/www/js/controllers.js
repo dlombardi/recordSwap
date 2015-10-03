@@ -95,6 +95,12 @@ angular.module('starter.controllers', [])
     storageService.removeItem("user");
     $state.go("login");
   };
+
+  $scope.confirmTrade = function(selectedRecord, desiredRecord){
+    console.log("selectedRecord:", selectedRecord);
+    console.log("desiredRecord:", desiredRecord);
+  };
+
 })
 
 

@@ -36,10 +36,11 @@
           <div class="input-label">
             Personal Stache
           </div>
-          <select>
+          <select ng-model="selectedRecord">
             <option ng-repeat="item in user.records">{{item.recordname}}</option>            
           </select>
         </label>
+          <button ng-click="confirmTrade(selectedRecord, desiredRecord)">Trade {{selectedRecord}}</button>
 
         </div>
         </ion-content>
@@ -58,7 +59,7 @@
           <img src="{{record.picture}}">
         </div>
         <div class="col-md-8">
-          <h4>{{record.recordname}} by {{record.artist}}</h4>
+          <h4 ng-model="desiredRecord">{{record.recordname}} by {{record.artist}}</h4>
           <p>Genre: {{record.genre}}</p>
           <p>Condition: {{record.condition}}</p>
           <p>Available: {{record.isAvailable}}</p>                  
