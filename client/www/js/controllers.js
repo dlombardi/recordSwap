@@ -17,6 +17,12 @@ angular.module('starter.controllers', [])
   $scope.user = storageService.load("user");
   $scope.data = {};
 
+  userService.login()
+  .success(function(data){
+    
+  })
+
+
   $scope.logout = function(){
     storageService.removeItem("user");
     $state.go("login");
@@ -36,6 +42,8 @@ angular.module('starter.controllers', [])
   }).then(function(modal) {
     $scope.modal = modal;
   });
+
+
 
   $scope.createContact = function(u) {
     $scope.contacts.push({ name: u.firstName + ' ' + u.lastName });
