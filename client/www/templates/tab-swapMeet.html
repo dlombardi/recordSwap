@@ -52,7 +52,7 @@
         </ion-content>
       </ion-modal-view> -->
 <h1 class="Title">Trade Offers</h1>
-      <div class="list">
+      <div class="list media">
   <a class="item item-thumbnail-left" href="#"  ng-repeat="record in items" ng-click="click(record)">
     <div class="table">
       <div class="row">
@@ -67,10 +67,18 @@
         </div>                
       </div>              
     </div>
+
+    <!-- <div class="media-left">
+      <img class="media-object" src="{{record.picture}}" ng-src="{{record.picture}}" alt="...">
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading">{{record.recordname}} by {{record.artist}}</h4>
+          <p>Genre: {{record.genre}}</p>
+          <p>Condition: {{record.condition}}</p>
+          <p>Available: {{record.isAvailable}}</p>                  
+    </div> -->
   </a>
 </div>
-
-<button class="button button-block button-assertive" ng-click="goProfile()">Go Back</button>
 <button class="button button-block button-assertive" ng-click="logout()">Logout</button>
     
 
