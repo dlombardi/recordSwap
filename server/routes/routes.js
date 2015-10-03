@@ -34,7 +34,6 @@ module.exports = function (app) {
     Account.register(new Account(req.body), password, function(err, account) {
       if (err) {
         console.log(err);
-          // return res.render('register', { account : account });
       }
 
       passport.authenticate('local')(req, res, function () {
@@ -103,15 +102,41 @@ module.exports = function (app) {
   // After trading item delete all pending trades
   app.post('/trade', function(req, res){
     var trade = new Trade(req.body);
-    console.log(req.body);
     trade.save();
     res.send(trade);
   });
 
   app.post('/acceptTrade', function(req, res){
-    Trade.findByIdAndRemove(req.body.tid, function(err, trade) {
-
-    });
+    Trade.findById(req.body.tid, function(err, trade) {
+      Trade.populate(trade, [
+        {path: "sender"}, 
+        {path: "receiver"}, 
+        {path: "receiverRecords"},
+        {path: "senderRecords"}],
+        function(err, popTrade) {
+          Account.update(
+          {_id: trade.sender}, 
+          {$pushAll: {records: trade.receiverRecords}}, 
+          function(err) {
+            popTrade.receiverRecords.forEach(function(record) {
+              record.user = trade.sender._id;
+              record.save();
+              //trade.receiver.records.pull({_id: {$ne: trade.receiver._id}});
+            });
+          });
+        Account.update(
+          {_id: trade.receiver}, 
+          {$pushAll: {records: trade.senderRecords}}, 
+          function(err) {
+            popTrade.senderRecords.forEach(function(record) {
+              record.user = trade.receiver._id;
+              record.save();
+              //trade.sender.records.pull({_id: {$ne: trade.sender._id}});
+            });
+          });
+          res.send(trade);
+        });
+      });
   });
 
   /*admin routes*/
