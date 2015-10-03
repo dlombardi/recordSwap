@@ -73,9 +73,13 @@ module.exports = function (app) {
     });
   });
   app.delete('/deleteRecord', function(req, res){
+<<<<<<< HEAD
+    console.log(req.body);
+=======
     if(req.body.rid === undefined) {
       req.body.rid = req.query.rid;
     }
+>>>>>>> be8507da924fe7c6d5867ca0a93969ad27479987
     Record.findById(req.body.rid, function(err, record) {
       if(err) {
         res.status(400).send("Record not found!");
