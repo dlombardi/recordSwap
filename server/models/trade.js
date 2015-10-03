@@ -6,7 +6,8 @@ var Record = require('./record');
 var tradeSchema = new Schema({
   sender: {type: Mongoose.Schema.ObjectId , ref: 'User'},
   receiver: {type: Mongoose.Schema.ObjectId , ref: 'User'},
-  record: {type: Mongoose.Schema.ObjectId , ref: 'Record'},
+  senderRecords: [{type: Mongoose.Schema.ObjectId , ref: 'Record'}],
+  receiverRecords: [{type: Mongoose.Schema.ObjectId , ref: 'Record'}],
   date: {type: Date, default: Date.now()}
 });
 
