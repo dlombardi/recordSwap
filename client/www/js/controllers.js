@@ -27,7 +27,6 @@ angular.module('starter.controllers', [])
       record = {};
     })
   }
-
   // accountService.get($scope.user._id)
   // .success(function(data){
   //   $scope.stache = data.records;
@@ -54,7 +53,10 @@ angular.module('starter.controllers', [])
     $scope.modal = modal;
   });
 
-
+  $scope.trade = function(record) {
+    console.log(record);
+    $scope.showOptions=true;
+  }
 
   $scope.createContact = function(u) {
     $scope.contacts.push({ name: u.firstName + ' ' + u.lastName });
@@ -69,38 +71,21 @@ angular.module('starter.controllers', [])
 
   swapService.getRecords()
   .success(function(data){
-    $scope.items = data;
+    console.log(data)
+    console.log($scope.user)
+    var records = data.slice();
+    for (var i= records.length-1; i>=0; i--){
+      console.log(i)
+      console.log('r', records[i].user, 's', $scope.user._id)
+      if (records[i].user === $scope.user._id) {
+        var removed = records.splice(i, 1)
+        console.log(removed);
+      }
+    }
+    $scope.items = records;
   });
 
-  // $scope.items = [
-  // {
-  //   owner: "Maru",
-  //   picture: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150',
-  //   recordname: "New Maps of Hell",
-  //   artist: "Bad Religion",
-  //   genre: "Punk Rock",
-  //   condition: "Good",
-  //   isAvailable: "Yes"
-  // },
-  // {
-  //   owner: "Maru",
-  //   picture: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150',
-  //   recordname: "New Maps of Hell",
-  //   artist: "Bad Religion",
-  //   genre: "Punk Rock",
-  //   condition: "Good",
-  //   isAvailable: "Yes"
-  // },
-  // {
-  //   owner: "Maru",
-  //   picture: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150',
-  //   recordname: "New Maps of Hell",
-  //   artist: "Bad Religion",
-  //   genre: "Punk Rock",
-  //   condition: "Good",
-  //   isAvailable: "Yes"
-  // }
-  // ];
+
 
   $scope.selectRecord = function(record){
 

@@ -59,13 +59,19 @@
         <div class="col-md-4">
           <img src="{{record.picture}}" class="media-object">
         </div>
-        <div class="col-md-8">
+        <div class="col-md-6">
           <h4>{{record.recordname}} by {{record.artist}}</h4>
           <p>Genre: {{record.genre}}</p>
           <p>Condition: {{record.condition}}</p>
           <p>Available: {{record.isAvailable}}</p>                  
         </div>                
-      </div>              
+      </div> 
+      <div class='col-md-2'>
+        <button ng-click='trade(record)'>Trade</button>
+      </div> 
+      <select>
+        <option ng-repeat='record in items'>{{record.recordname}}</option>
+      </select>            
     </div>
 
     <!-- <div class="media-left">
