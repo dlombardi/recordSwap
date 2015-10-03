@@ -13,13 +13,24 @@ angular.module('starter.controllers', [])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope, $state, userService, storageService, accountService) {
+.controller('AccountCtrl', function($scope, $state, storageService, accountService) {
   $scope.user = storageService.load("user");
   $scope.data = {};
+  $scope.record = {};
+  $scope.record.picture = "http://blogs.luc.edu/hubbub/files/2012/12/5027967-vinyl-record-with-a-color-center-on-a-white-background.jpg";
 
-  userService.login()
+  $scope.addRecord = function(record){
+    record.user = $scope.user._id
+    accountService.addRecord(record)
+    .success(function(data){
+      console.log("britney spears is banned from this service");
+      record = {};
+    })
+  }
+
+  accountService.get($scope.user._id)
   .success(function(data){
-    
+    $scope.stache = data.records;
   })
 
 
@@ -28,10 +39,10 @@ angular.module('starter.controllers', [])
     $state.go("login");
   };
 
-  accountService.getUserRecords()
-  .success(function(data, status) {
-    $scope.stache = data;
-  })
+  // accountService.getUserRecords()
+  // .success(function(data, status) {
+  //   $scope.stache = data;
+  // })
 
 
 })
@@ -65,7 +76,7 @@ angular.module('starter.controllers', [])
   {
     owner: "Maru",
     recordname: "New Maps of Hell",
-    artist: "Bad Religion", 
+    artist: "Bad Religion",
     genre: "Punk Rock",
     condition: "Good",
     isAvailable: "Yes"
@@ -73,7 +84,7 @@ angular.module('starter.controllers', [])
   {
     owner: "Maru",
     recordname: "New Maps of Hell",
-    artist: "Bad Religion", 
+    artist: "Bad Religion",
     genre: "Punk Rock",
     condition: "Good",
     isAvailable: "Yes"
@@ -81,7 +92,7 @@ angular.module('starter.controllers', [])
   {
     owner: "Maru",
     recordname: "New Maps of Hell",
-    artist: "Bad Religion", 
+    artist: "Bad Religion",
     genre: "Punk Rock",
     condition: "Good",
     isAvailable: "Yes"

@@ -19,16 +19,16 @@
     <ion-list>
       <div class="list list-inset">
         <label class="item item-input">
-          <input type="text" placeholder="Name" ng-model="record.artist">
+          <input type="text" placeholder="Record Name" ng-model="record.recordname">
         </label>
         <label class="item item-input">
-          <input type="text" placeholder="Address" ng-model="record.recordname">
+          <input type="text" placeholder="Artist" ng-model="record.artist">
+        </label>
+        <label class="item item-input">
+          <input type="text" placeholder="Genre" ng-model="record.genre">
         </label>
         <label class="item item-input">
           <input type="text" placeholder="Picture" ng-model="record.picture">
-        </label>
-        <label class="item item-input">
-          <input type="text" placeholder="Available" ng-model="record.isAvailable">
         </label>
         <label class="item item-input item-select">
           <div class="input-label">
@@ -43,7 +43,7 @@
             <option ng-model="record.condition" value="Poor">Poor</option>
           </select>
         </label>
-        <button class="button button-block button-positive" ng-click="addRecord()">Add Record</button>
+        <button class="button button-block button-positive" ng-click="addRecord(record)">Add Record</button>
       </div>
 
     </ion-list>

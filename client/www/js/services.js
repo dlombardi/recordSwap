@@ -47,8 +47,12 @@ angular.module('starter.services', [])
 })
 
 .service('accountService', function($http){
-  this.getUserRecords = function(){
-    return $http.get("http://localhost:1337/userRecords");
+  this.getUserRecords = function(uid){
+    return $http.get("http://localhost:1337/user?uid=" + uid);
+  }
+
+  this.addRecord = function(data){
+    return $http.post("http://localhost:1337/addRecord", data)
   }
 })
 //
