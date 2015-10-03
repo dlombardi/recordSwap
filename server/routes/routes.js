@@ -110,6 +110,7 @@ module.exports = function (app) {
 
   app.post('/acceptTrade', function(req, res){
     Trade.findByIdAndRemove(req.body.tid, function(err, trade) {
+      
     });
   });
 
