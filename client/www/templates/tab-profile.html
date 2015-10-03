@@ -1,23 +1,34 @@
 <ion-view view-title="Profile">
-  <ion-content>
-    <ion-list>
-      <ul class="list">
-        <li class="item">Username: {{user.username}}</li>
+<ion-content>
+<ion-list>
+<ul class="list">
+  <li class="item">Username: {{user.username}}</li>
 
-      </ul>
-      <label class="item item-input item-select">
-        <div class="input-label">
-          Records
+</ul>
+<label class="item item-input item-select">
+  <div class="input-label">
+    Records
+  </div>      
+  <div class="card" ng-repeat="record in records track by $index">
+    <div class="table">
+      <div class="row">
+        <div class="col-md-4">
+          <img src="{{record.picture}}">
         </div>
-        <select>
+        <div class="col-md-8">
+          <h4>{{record.recordname}} by {{record.artist}}</h4>
+          <p>Genre: {{record.genre}}</p>
+          <p>Condition: {{record.condition}}</p>
+          <p>Available: {{record.isAvailable}}</p>                  
+        </div>                
+      </div>              
+    </div>
+  </div>
+</label>
 
-          <option ng-selected="$index === 0" ng-repeat="record in records track by $index">{{record.name}}</option>
-        </select>
-      </label>
 
-    
-      <button class="button button-block button-positive" ng-click="goAddRecord()">Add a record</button>
-      <!-- goAddRecord takes user to the add record form -->
-      <button class="button button-block button-assertive" ng-click="logout()">Logout</button>
-  </ion-content>
+<button class="button button-block button-positive" ng-click="goAddRecord()">Add a record</button>
+<!-- goAddRecord takes user to the add record form -->
+<button class="button button-block button-assertive" ng-click="logout()">Logout</button>
+</ion-content>
 </ion-view>
