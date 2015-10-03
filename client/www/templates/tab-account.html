@@ -1,13 +1,13 @@
 <ion-view view-title="Account">
   <ion-content>
-    <ion-list ng-if="user.isManager === true">
+  <button class="button button-block button-assertive" ng-click="logout()">Logout</button>
+    <ion-list>
       <ul class="list">
         <li class="item">Username: {{user.username}}</li>
-
       </ul>
-      <label class="item item-input item-select" ng-if="user.isManager === true">
+      <label class="item item-input item-select">
         <div class="input-label">
-          Properties
+          Add new Record
         </div>
         <select>
 
@@ -15,70 +15,46 @@
         </select>
       </label>
 
-      <div class="list list-inset" ng-show="propertyState">
-        <label class="item item-input">
-          <input type="text" placeholder="Apartment Number" ng-model="data.aptNum">
-        </label>
-
-        <label class="item item-input">
-          <input type="text" placeholder="Square Feet" ng-model="data.sqrfoot">
-        </label>
-        <label class="item item-input">
-          <input type="text" placeholder="Rent" ng-model="data.rent">
-        </label>
-        <label class="item item-input">
-          <input type="text" placeholder="Bedrooms" ng-model="data.bedrooms">
-        </label>
-        <label class="item item-input">
-          <input type="text" placeholder="Bathrooms" ng-model="data.bathrooms">
-        </label>
-        <label class="item item-input">
-          <input type="text" placeholder="Picture URL" ng-model="data.picture">
-        </label>
-        <button class="button button-block button-positive" ng-click="addApartment()">Add Apartment</button>
-      </div>
-
     </ion-list>
-    <ion-list ng-if="user.isAdmin === true">
+    <ion-list>
       <div class="list list-inset">
-
+        <label class="item item-input">
+          <input type="text" placeholder="Name" ng-model="record.artist">
+        </label>
+        <label class="item item-input">
+          <input type="text" placeholder="Address" ng-model="record.recordname">
+        </label>
+        <label class="item item-input">
+          <input type="text" placeholder="Picture" ng-model="record.picture">
+        </label>
+        <label class="item item-input">
+          <input type="text" placeholder="Available" ng-model="record.isAvailable">
+        </label>
         <label class="item item-input item-select">
           <div class="input-label">
-            Manager
+            Condition
           </div>
-          <select ng-model="property.managerName">
-            <option ng-selected="$index === 0" ng-repeat="manager in managers track by $index">{{manager.username}}</option>
+          <select>
+            <option ng-repeat="item in stache">{{item.name}}</option>
+            <option ng-model="record.condition" value="Mint">Mint</option>
+            <option ng-model="record.condition" value="Excellent">Excellent</option>
+            <option ng-model="record.condition" value="Good">Good</option>
+            <option ng-model="record.condition" value="Decent">Decent</option>
+            <option ng-model="record.condition" value="Poor">Poor</option>
           </select>
         </label>
-
-        <label class="item item-input">
-          <input type="text" placeholder="Name" ng-model="property.name">
-        </label>
-        <label class="item item-input">
-          <input type="text" placeholder="Address" ng-model="property.address">
-        </label>
-        <label class="item item-input">
-          <input type="text" placeholder="Picture URL" ng-model="property.picture">
-        </label>
-        <button class="button button-block button-positive" ng-click="addProperty()">Add Property</button>
+        <button class="button button-block button-positive" ng-click="addRecord()">Add Record</button>
       </div>
 
     </ion-list>
     <div class="list list-inset">
-      <ion-list ng-if="user.isAdmin === true">
-        <label class="item item-input">
-          <input type="text" placeholder="Make Manager" ng-model="makeManager">
-          <button class="button button-positive" ng-click="makeManager()">Make Manager</button>
-
-        </label>
-
-        <a class="item item-thumbnail-left" href="#" ng-repeat="user in users" ng-click="click(makeManager)">
+      <ion-list>
+        <a class="item item-thumbnail-left" href="#" ng-repeat="record in stache" ng-click="click(makeManager)">
           <img src="{{user.picture}}">
-          <h2>{{user.username}}</h2>
-          <i class="icon fa fa-group"></i>
+          <h2>{{record.recordname}}</h2>
+          <h2>{{record.artist}}</h2>
         </a>
       </ion-list>
     </div>
-<button class="button button-block button-assertive" ng-click="logout()">Logout</button>
   </ion-content>
 </ion-view>

@@ -8,3 +8,7 @@
   top: 50%;
   position: relative;
 }
+
+ion-slide-box{
+  height: 300px;
+}
