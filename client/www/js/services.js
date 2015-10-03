@@ -47,8 +47,9 @@ angular.module('starter.services', [])
   this.requestSwap = function(data) {
     return $http.post('http://localhost:1337/trade', data);
   }
-  this.viewTrades = function() {
-    return $http.get('http://localhost:1337/trade');
+  this.showTrades = function() {
+    console.log('init');
+    return $http.get('http://localhost:1337/trade')
   }
 })
 

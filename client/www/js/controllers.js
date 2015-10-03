@@ -29,8 +29,6 @@ angular.module('starter.controllers', [])
   }
 
   $scope.deleteRecord = function(record){
-    console.log("I'm in")
-    console.log(record);
     accountService.deleteRecord({"rid": record._id})
     .success(function(data){
       console.log(data);
@@ -43,10 +41,11 @@ angular.module('starter.controllers', [])
     $state.go("login");
   };
 
-  // accountService.getUserRecords()
-  // .success(function(data, status) {
-  //   $scope.stache = data;
-  // })
+  accountService.getUserRecords($scope.user._id)
+  .success(function(data, status) {
+    console.log(data);
+    $scope.stache = data.records;
+  })
 
 
 })
@@ -58,6 +57,10 @@ angular.module('starter.controllers', [])
     $scope.modal = modal;
   });
 
+  $scope.user = storageService.load("user");
+  console.log($scope.user);
+
+
   $scope.togglePendingTrades = function(){
     if($scope.pendingTrades){
       $scope.pendingTrades = false;
@@ -65,8 +68,6 @@ angular.module('starter.controllers', [])
       $scope.pendingTrades = true;
     }
   }
-
-
 
   $scope.createContact = function(u) {
     $scope.contacts.push({ name: u.firstName + ' ' + u.lastName });
@@ -76,8 +77,6 @@ angular.module('starter.controllers', [])
   $scope.nextSlide = function() {
     $ionicSlideBoxDelegate.next();
   }
-
-  $scope.user = storageService.load("user");
 
   swapService.getRecords()
   .success(function(data){
@@ -90,6 +89,13 @@ angular.module('starter.controllers', [])
     $scope.items = records;
   });
 
+  swapService.showTrades()
+  .success(function(data) {
+    console.log(data);
+    console.log('done')
+    $scope.trades = data;
+  })
+
   $scope.requestTrade = function(myRecord, desiredRecord) {
     console.log(myRecord);
     console.log(desiredRecord);
@@ -101,11 +107,12 @@ angular.module('starter.controllers', [])
     console.log(swap);
     swapService.requestSwap(swap).success(function(data){
       console.log(data)
-    })
+      $scope.modal.hide();
+    });
 
   }
   $scope.selectRecord = function(selectedRecord){
-    $scope.desiredRecord=selectedRecord
+    $scope.desiredRecord=selectedRecord;
   };
   $scope.selectMyRecord = function(myRecord){
     console.log(myRecord);
@@ -120,20 +127,6 @@ angular.module('starter.controllers', [])
   $scope.logout = function(){
     storageService.removeItem("user");
     $state.go("login");
-  };
-
-  $scope.requestTrade = function(myRecord, desiredRecord) {
-    console.log(myRecord);
-    console.log(desiredRecord);
-    var swap= {};
-    swap.sender = myRecord.user;
-    swap.receiver = desiredRecord.user;
-    swap.senderRecords = [myRecord._id];
-    swap.receiverRecords = [desiredRecord._id];
-    console.log(swap);
-    swapService.requestSwap(swap).success(function(data){
-      console.log(data)
-    });
   };
 
   $scope.confirmTrade = function(selectedRecord, desiredRecord){
