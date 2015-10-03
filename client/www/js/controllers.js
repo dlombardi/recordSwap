@@ -28,19 +28,10 @@ angular.module('starter.controllers', [])
     })
   }
 
-  $scope.deleteRecord = function(record){
-    record.user = $scope.user._id
-    accountService.deleteRecord(record)
-    .success(function(data){
-      console.log("data");
-      record = {};
-    });
-  }
-
-  accountService.getUserRecords($scope.user._id)
-  .success(function(data){
-    $scope.stache = data.records;
-  })
+  // accountService.get($scope.user._id)
+  // .success(function(data){
+  //   $scope.stache = data.records;
+  // })
 
 
   $scope.logout = function(){
@@ -63,8 +54,6 @@ angular.module('starter.controllers', [])
     $scope.modal = modal;
   });
 
-
-
   $scope.createContact = function(u) {
     $scope.contacts.push({ name: u.firstName + ' ' + u.lastName });
     $scope.modal.hide();
@@ -78,13 +67,36 @@ angular.module('starter.controllers', [])
 
   swapService.getRecords()
   .success(function(data){
-    $scope.items = data;
-    console.log("user:", $scope.user);
+    var records = data.slice();
+    for (var i= records.length-1; i>=0; i--){
+      if (records[i].user === $scope.user._id) {
+        var removed = records.splice(i, 1)
+      }
+    }
+    $scope.items = records;
   });
 
-  $scope.selectRecord = function(record){
+  $scope.requestTrade = function(myRecord, desiredRecord) {
+    console.log(myRecord);
+    console.log(desiredRecord);
+    var swap= {};
+    swap.sender = myRecord.user;
+    swap.receiver = desiredRecord.user;
+    swap.senderRecords = [myRecord._id];
+    swap.receiverRecords = [desiredRecord._id];
+    console.log(swap);
+    swapService.requestSwap(swap).success(function(data){
+      console.log(data)
+    })
 
+  }
+  $scope.selectRecord = function(selectedRecord){
+    $scope.desiredRecord=selectedRecord
   };
+  $scope.selectMyRecord = function(myRecord){
+    console.log(myRecord);
+    $scope.selectedRecord=myRecord;
+  }
 
   $scope.click = function(propID) {
     $state.go('tab.manager');

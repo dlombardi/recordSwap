@@ -115,6 +115,12 @@ module.exports = function (app) {
 
 
   // After trading item delete all pending trades
+  app.get('/trade', function(req, res){
+    Trade.find({}, function(err,trades){
+      res.send(trades);
+    })
+  })
+
   app.post('/trade', function(req, res){
     var trade = new Trade(req.body);
     trade.save();

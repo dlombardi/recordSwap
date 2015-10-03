@@ -26,7 +26,7 @@
     <script id="templates/modal.html" type="text/ng-template">
       <ion-modal-view>
         <ion-header-bar class="bar bar-header bar-positive">
-          <h1 class="title">Trade Offer</h1>
+          <h1 class="title">Trade Offer for {{desiredRecord.recordname}}</h1>
           <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
         </ion-header-bar>
         <ion-content class="padding">
@@ -36,11 +36,11 @@
           <div class="input-label">
             Personal Stache
           </div>
-          <select ng-model="selectedRecord">
-            <option ng-repeat="item in user.records">{{item.recordname}}</option>
+          <select ng-options='item.recordname for item in user.records' ng-model='myRecord'>
+            
           </select>
         </label>
-          <button class="button button-clear button-primary" ng-click="confirmTrade(selectedRecord, desiredRecord)">Trade {{selectedRecord}}</button>
+          <button class="button button-clear button-primary" ng-click="requestTrade(myRecord, desiredRecord)">Trade {{myRecord.recordname}}</button>
 
         </div>
         </ion-content>
@@ -59,12 +59,12 @@
           <img src="{{record.picture}}">
         </div>
         <div class="col-md-8">
-          <h4 ng-model="desiredRecord">{{record.recordname}} by {{record.artist}}</h4>
+          <h4>{{record.recordname}} by {{record.artist}}</h4>
           <p>Genre: {{record.genre}}</p>
           <p>Condition: {{record.condition}}</p>
-          <p>Available: {{record.isAvailable}}</p>
-        </div>
-      </div>
+          <p>Available: {{record.isAvailable}}</p>                  
+        </div>                
+      </div>              
     </div>
       </ion-item>
     </ion-list>
