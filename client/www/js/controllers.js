@@ -71,9 +71,9 @@ angular.module('starter.controllers', [])
         })
 })
 
-.controller('propCtrl', function($scope, userService, propertyService, $state, storageService) {
+.controller('swapMeetCtrl', function($scope, userService, propertyService, $state, storageService) {
   $scope.user = storageService.load("user");
-  propertyService.get()  
+  propertyService.get()
         .success(function(data, status) {
 
             propertyService.properties = data;
@@ -166,7 +166,7 @@ angular.module('starter.controllers', [])
 .controller('loginCtrl', function($scope, userService, $state, aptService, storageService) {
     $scope.data = {};
     $scope.newOne = "false";
-  
+
       $scope.data = storageService.load("user");
       console.log($scope.data);
       if ($scope.data && $scope.data!==undefined) {
@@ -180,7 +180,7 @@ angular.module('starter.controllers', [])
         } else if (data.isTenent) {
             $state.go('tab.aptDetail');
         } else {
-            $state.go('tab.properties');
+            $state.go('tab.swapMeet');
         }
     }
     $scope.newAccount = function() {
