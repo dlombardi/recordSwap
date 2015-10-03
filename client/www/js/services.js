@@ -42,13 +42,20 @@ angular.module('starter.services', [])
 .service('swapService', function($http){
   this.current = "";
   this.getRecords = function(){
-    return $http.get("http://localhost:1337/records");
+    return $http.get("http://localhost:1337/record");
   }
 })
 
 .service('accountService', function($http){
-  this.getUserRecords = function(){
-    return $http.get("http://localhost:1337/userRecords");
+  this.getUserRecords = function(uid){
+    return $http.get("http://localhost:1337/user?uid=" + uid);
+  }
+  this.deleteRecord = function(data){
+    return $http.get("http://localhost:1337/deleteRecord", data);
+  }
+
+  this.addRecord = function(data){
+    return $http.post("http://localhost:1337/addRecord", data)
   }
 })
 //
