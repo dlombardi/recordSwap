@@ -39,21 +39,34 @@ angular.module('starter.services', [])
 })
 
 
-.service('aptService', function ($http) {
+.service('swapService', function($http){
   this.current = "";
-  this.get = function (){
-     return $http.get("http://localhost:1337/apartment");
-  }
-  this.add = function (data) {
-      return $http.post("http://localhost:1337/addApartment", data);
+  this.getRecords = function(){
+    return $http.get("http://localhost:1337/records");
   }
 })
-.service('propertyService', function ($http) {
-  this.current = "";
-  this.get = function (){
-     return $http.get("http://localhost:1337/showProperties");
-  }
-  this.add = function (data) {
-      return $http.post("http://localhost:1337/addProperty", data);
+
+.service('accountService', function($http){
+  this.getUserRecords = function(){
+    return $http.get("http://localhost:1337/userRecords");
   }
 })
+//
+// .service('aptService', function ($http) {
+//   this.current = "";
+//   this.get = function (){
+//      return $http.get("http://localhost:1337/apartment");
+//   }
+//   this.add = function (data) {
+//       return $http.post("http://localhost:1337/addApartment", data);
+//   }
+// })
+// .service('propertyService', function ($http) {
+//   this.current = "";
+//   this.get = function (){
+//      return $http.get("http://localhost:1337/showProperties");
+//   }
+//   this.add = function (data) {
+//       return $http.post("http://localhost:1337/addProperty", data);
+//   }
+// })
