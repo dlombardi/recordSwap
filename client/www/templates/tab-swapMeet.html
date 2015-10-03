@@ -37,10 +37,10 @@
             Personal Stache
           </div>
           <select ng-model="selectedRecord">
-            <option ng-repeat="item in user.records">{{item.recordname}}</option>            
+            <option ng-repeat="item in user.records">{{item.recordname}}</option>
           </select>
         </label>
-          <button ng-click="confirmTrade(selectedRecord, desiredRecord)">Trade {{selectedRecord}}</button>
+          <button class="button button-clear button-primary" ng-click="confirmTrade(selectedRecord, desiredRecord)">Trade {{selectedRecord}}</button>
 
         </div>
         </ion-content>
@@ -62,9 +62,9 @@
           <h4 ng-model="desiredRecord">{{record.recordname}} by {{record.artist}}</h4>
           <p>Genre: {{record.genre}}</p>
           <p>Condition: {{record.condition}}</p>
-          <p>Available: {{record.isAvailable}}</p>                  
-        </div>                
-      </div>              
+          <p>Available: {{record.isAvailable}}</p>
+        </div>
+      </div>
     </div>
       </ion-item>
     </ion-list>
