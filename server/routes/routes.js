@@ -125,12 +125,16 @@ module.exports = function (app) {
   app.get('/trade', function(req, res){
     if(req.query.uid !== undefined) {
       Trade.find({receiver: req.query.uid}, function(err, trades) {
-        res.send(trades);
-        return;
+        Record.populate(trades, {path: "receiverRecords"}, function( err, populated){
+          res.send(populated);
+        })
       });
     }
     Trade.find({}, function(err,trades){
-      res.send(trades);
+      Record.populate(trades, {path: "senderRecords"}, function( err, populated){
+        res.send(populated);
+      })
+      //res.send(trades);
     })
   })
 
