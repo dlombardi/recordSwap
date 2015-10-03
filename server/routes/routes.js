@@ -35,17 +35,13 @@ module.exports = function (app) {
     });
   });
 
-  app.get('/login', function(req, res) {
-      // res.render('login', { user : req.user });
-  });
-
   app.post('/login', passport.authenticate('local'), function(req, res) {
       console.log(req.body);
       Account.findOne({username: req.body.username}, function(err, account){
-        res.send(account);
-        console.log(account);
+        Record.populate(account, {path: "records"}, function(err, populated) {
+          res.send(populated);
+        })
       });
-      // res.redirect('/');
   });
 
   app.get('/logout', function(req, res) {
@@ -95,6 +91,20 @@ module.exports = function (app) {
     }
   })
 
+
+  // After trading item delete all pending trades
+  app.post('/trade', function(req, res){
+    var trade = new Trade(req.body);
+    trade.save();
+    res.send(trade);
+  });
+
+  app.post('/acceptTrade', function(req, res){
+    Trade.findByIdAndRemove(req.body.tid, function(err, trade) {
+
+    });
+  });
+
   /*admin routes*/
 
   /*add a manager*/
@@ -117,11 +127,5 @@ module.exports = function (app) {
        }
      });
    });
- });
-
- app.get('/showUsers', function(req, res){
-   Account.find({}, function(err, users){
-     res.send(users);
-   })
  });
 };

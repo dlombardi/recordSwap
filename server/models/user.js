@@ -7,7 +7,7 @@ var userSchema = new Schema({
   fullName: {type: String, required: true},
   username: {type: String, required: true},
   email: {type: String, required: true},
-  records: [{type: Mongoose.Schema.ObjectId , ref: 'Records'}],
+  records: [{type: Mongoose.Schema.ObjectId , ref: 'Record'}],
 
 });
 
