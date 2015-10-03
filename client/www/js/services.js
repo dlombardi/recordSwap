@@ -43,17 +43,10 @@ angular.module('starter.services', [])
   this.current = "";
   this.getRecords = function(){
     return $http.get("http://localhost:1337/record");
-<<<<<<< HEAD
-  };
-  this.tradeRecords = function(){
-    console.log();
-  };
-=======
   }
   this.requestSwap = function(data) {
     return $http.post('http://localhost:1337/trade', data);
   }
->>>>>>> 44c0c6148ac5843113c3fe45eebdb8f54a2de111
   this.viewTrades = function() {
     return $http.get('http://localhost:1337/trade');
   }

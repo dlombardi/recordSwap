@@ -122,6 +122,20 @@ angular.module('starter.controllers', [])
     $state.go("login");
   };
 
+  $scope.requestTrade = function(myRecord, desiredRecord) {
+    console.log(myRecord);
+    console.log(desiredRecord);
+    var swap= {};
+    swap.sender = myRecord.user;
+    swap.receiver = desiredRecord.user;
+    swap.senderRecords = [myRecord._id];
+    swap.receiverRecords = [desiredRecord._id];
+    console.log(swap);
+    swapService.requestSwap(swap).success(function(data){
+      console.log(data)
+    });
+  };
+
   $scope.confirmTrade = function(selectedRecord, desiredRecord){
     console.log("selectedRecord:", selectedRecord);
     console.log("desiredRecord:", desiredRecord);
