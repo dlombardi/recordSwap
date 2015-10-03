@@ -14,7 +14,7 @@
 
 
     <ion-header-bar class="bar-positive">
-      <h1 class="title">Trade Records</h1>
+      <h1 class="title">Welcome {{user.username}}!</h1>
     </ion-header-bar>
     <ion-content>
       <ion-list>
@@ -47,26 +47,36 @@
       </ion-modal-view>
     </script>
 
-    <button class="button button-block button-assertive" ng-click="logout()">Logout</button>
-
-
+    <label class="item item-input">
+      <input type="text" placeholder="Search" ng-model="query">
+    </label>
+    <!-- <label class="item item-input">
+      <input type="text" placeholder="Search by Artist" ng-model="search.artist">
+    </label>
+    <label class="item item-input">
+      <input type="text" placeholder="Search by Genre" ng-model="search.genre">
+    </label> 
+    <button class="button button-block button-assertive" ng-click="search(search.recordname, search.artist, search.genre)">Search</button> -->
+    <h2 class="title">Trade Records</h2>
     <ion-list>
-      <ion-item ng-repeat="record in items">
+    Query: {{query}}
+      <ion-item ng-repeat="record in items | filter: query">
         <ion-option-button class="button-positive" ng-click="selectRecord(record); modal.show();">Ask To Trade</ion-option-button>
         <div class="table">
-      <div class="row">
-        <div class="col-md-4">
-          <img src="{{record.picture}}">
+          <div class="row">
+            <div class="col-md-4">
+              <img src="{{record.picture}}">
+            </div>
+            <div class="col-md-8">
+              <h4 ng-model="desiredRecord">{{record.recordname}} by {{record.artist}}</h4>
+              <p>Genre: {{record.genre}}</p>
+              <p>Condition: {{record.condition}}</p>
+              <p>Available: {{record.isAvailable}}</p>                  
+            </div>                
+          </div>              
         </div>
-        <div class="col-md-8">
-          <h4 ng-model="desiredRecord">{{record.recordname}} by {{record.artist}}</h4>
-          <p>Genre: {{record.genre}}</p>
-          <p>Condition: {{record.condition}}</p>
-          <p>Available: {{record.isAvailable}}</p>                  
-        </div>                
-      </div>              
-    </div>
       </ion-item>
     </ion-list>
+    <button class="button button-block button-assertive" ng-click="logout()">Logout</button>
   </ion-content>
 </ion-view>

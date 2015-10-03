@@ -57,10 +57,12 @@ angular.module('starter.controllers', [])
 })
 
 .controller('swapMeetCtrl', function($scope, userService, swapService, $state, storageService, $ionicModal, $ionicSlideBoxDelegate) {
-  $ionicModal.fromTemplateUrl('templates/modal.html', {
-    scope: $scope
-  }).then(function(modal) {
+  $ionicModal.fromTemplateUrl('templates/modal.html', function(modal){
+    // $scope.query = "test"
     $scope.modal = modal;
+  },{
+    scope: $scope
+    // rootScope: $rootScope
   });
 
 
@@ -78,13 +80,36 @@ angular.module('starter.controllers', [])
 
   swapService.getRecords()
   .success(function(data){
-    $scope.items = data;
+    // $scope.items = data;
     console.log("user:", $scope.user);
+    console.log("data:", data);
+    var filteredData = []; 
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].user !== $scope.user._id) {
+        filteredData.push(data[i])
+      } 
+    }
+    console.log("filteredData", filteredData);
+    
+    
+    $scope.items = filteredData; 
   });
 
   $scope.selectRecord = function(record){
 
   };
+
+  $scope.searchFilter = function(record) {
+
+    if(!$scope.query) {
+      return true;
+    }
+
+    return record.recordname.indexOf($scope.query) !== -1 ||
+           record.artist.indexOf($scope.query) !== -1 ||
+           record.genre.indexOf($scope.query) !== -1;
+
+  }
 
   $scope.click = function(propID) {
     $state.go('tab.manager');
@@ -95,6 +120,27 @@ angular.module('starter.controllers', [])
     storageService.removeItem("user");
     $state.go("login");
   };
+
+  // $scope.search = function(searchRecordname, searchArtist, searchGenre){
+  //   console.log("recordname:", searchRecordname);
+  //   var searchData = []; 
+  //   if (typeof searchRecordname === 'undefined' && typeof searchArtist === 'undefined' && typeof searchGenre === 'undefined') {
+  //     console.log('No search');
+  //     return;
+  //   }
+
+  //   for (var i = 0; i < $scope.items.length; i++) {
+  //     if (
+  //       ($scope.items[i].recordname === searchRecordname || typeof searchRecordname === 'undefined') && 
+  //       ($scope.items[i].artist === searchArtist || typeof searchArtist === 'undefined') && 
+  //       ($scope.items[i].genre === searchGenre || typeof searchGenre === 'undefined') ) {
+        
+  //       searchData.push($scope.items[i]); 
+  //     } 
+  //   }
+  //   console.log("searchData", searchData);
+  //   $scope.items = searchData; 
+  // };
 
   $scope.confirmTrade = function(selectedRecord, desiredRecord){
     console.log("selectedRecord:", selectedRecord);
