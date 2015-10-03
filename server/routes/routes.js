@@ -38,10 +38,10 @@ module.exports = function (app) {
   app.post('/login', passport.authenticate('local'), function(req, res) {
       console.log(req.body);
       Account.findOne({username: req.body.username}, function(err, account){
-        res.send(account);
-        console.log(account);
-      }).populate('Record');
-      // res.redirect('/');
+        Record.populate(account, {path: "records"}, function(err, populated) {
+          res.send(populated);
+        })
+      });
   });
 
   app.get('/logout', function(req, res) {
