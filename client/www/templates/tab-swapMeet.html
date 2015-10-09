@@ -16,7 +16,7 @@
       <ion-item ng-repeat="trade in trades">
         has this transaction been accepted?: {{trade.completed}}
         {{trade.receiverRecords}}
-        <button class="button button-balanced pull-right">
+        <button ng-click="acceptTrade(trade)" class="button button-balanced pull-right">
           accept trade
         </button>
       </ion-item>

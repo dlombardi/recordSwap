@@ -27,15 +27,6 @@ angular.module('starter.services', [])
   this.get = function () {
     return $http.get("http://localhost:1337/showUsers");
   }
-  this.apply = function(data){
-    return $http.post("http://localhost:1337/pendingApproval", data);
-  }
-   this.getApplicants = function (id) {
-    return $http.get("http://localhost:1337/showApplicants?aid=" + id);
-  }
-   this.acceptApplicant = function (data){
-     return $http.post("http://localhost:1337/addTenant", data);
-   }
 })
 
 
@@ -51,6 +42,9 @@ angular.module('starter.services', [])
     console.log('init');
     return $http.get('http://localhost:1337/trade')
   }
+  this.acceptTrade = function(data){
+    return $http.post('http://localhost:1337/acceptTrade', data)
+  }
 })
 
 .service('accountService', function($http){
@@ -65,22 +59,3 @@ angular.module('starter.services', [])
     return $http.post("http://localhost:1337/addRecord", data)
   }
 })
-//
-// .service('aptService', function ($http) {
-//   this.current = "";
-//   this.get = function (){
-//      return $http.get("http://localhost:1337/apartment");
-//   }
-//   this.add = function (data) {
-//       return $http.post("http://localhost:1337/addApartment", data);
-//   }
-// })
-// .service('propertyService', function ($http) {
-//   this.current = "";
-//   this.get = function (){
-//      return $http.get("http://localhost:1337/showProperties");
-//   }
-//   this.add = function (data) {
-//       return $http.post("http://localhost:1337/addProperty", data);
-//   }
-// })

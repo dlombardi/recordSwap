@@ -26,27 +26,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     abstract: true,
     templateUrl: 'templates/tabs.html'
   })
-
-
-  .state('tab.dash', {
-    url: '/dash',
-    views: {
-      'tab-dash': {
-        templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
-      }
-    }
-  })
-
-  .state('tab.chats', {
-    url: '/chats',
-    views: {
-      'tab-chats': {
-        templateUrl: 'templates/tab-chats.html',
-        controller: 'ChatsCtrl'
-      }
-    }
-  })
   .state('tab.chat-detail', {
     url: '/chats/:chatId',
     views: {
@@ -56,7 +35,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
-
   .state('tab.account', {
     url: '/account',
     views: {
@@ -66,28 +44,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
-  .state('tab.manager', {
-    url: '/apts',
-    views: {
-      'tab-apts': {
-        templateUrl: 'templates/tab-apartments.html',
-        controller: 'aptCtrl'
-      }
-    }
-  })
   .state('login', {
     url: '/login',
     templateUrl: 'templates/login.html',
     controller: 'loginCtrl'
-  })
-  .state('tab.aptDetail', {
-    url: '/apts',
-    views: {
-      'tab-apts': {
-        templateUrl: 'templates/aptDetail.html',
-        controller: 'aptDetailCtrl'
-      }
-    }
   })
   .state('tab.swapMeet', {
     url: '/swapMeet',

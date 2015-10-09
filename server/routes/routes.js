@@ -145,13 +145,16 @@ module.exports = function (app) {
   });
 
   app.post('/acceptTrade', function(req, res){
+    console.log(req.body);
     Trade.findById(req.body.tid, function(err, trade) {
+      console.log(trade);
       Trade.populate(trade, [
         {path: "sender"},
         {path: "receiver"},
         {path: "receiverRecords"},
         {path: "senderRecords"}],
         function(err, popTrade) {
+          console.log(popTrade);
           Account.update(
           {_id: trade.sender},
           {$pushAll: {records: trade.receiverRecords}},
@@ -195,28 +198,4 @@ module.exports = function (app) {
         });
       });
   });
-
-  /*admin routes*/
-
-  /*add a manager*/
-  app.post('/addManager', function(req, res){
-    Account.findById(req.body.uid, function(err, user){
-     Property.findById(req.body.pid, function(err, property){
-       property.manager = user;
-        res.send("ok");
-      });
-    });
-  });
-
-/*delete a manager*/
- app.delete('/deleteManager', function(req, res){
-   Account.findById(req.body.uid, function(err, user){
-     Property.findById(req.body.pid, function(err, property){
-       if(property.manager.toString() === user._id.toString()){
-        property.manager = null;
-        apartment.save();
-       }
-     });
-   });
- });
 };

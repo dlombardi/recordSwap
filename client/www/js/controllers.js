@@ -2,17 +2,6 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
-//.controller('ChatsCtrl', function($scope, Chats) {
-//    $scope.chats = Chats.all();
-//    $scope.remove = function(chat) {
-//        Chats.remove(chat);
-//    };
-//})
-
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
-
 .controller('AccountCtrl', function($scope, $state, storageService, accountService) {
   $scope.user = storageService.load("user");
   $scope.data = {};
@@ -23,8 +12,13 @@ angular.module('starter.controllers', [])
     record.user = $scope.user._id
     accountService.addRecord(record)
     .success(function(data){
-      console.log("britney spears is banned from this service");
+      console.log(data);
       record = {};
+      accountService.getUserRecords($scope.user._id)
+      .success(function(data, status) {
+        console.log(data);
+        $scope.stache = data.records;
+      })
     })
   }
 
@@ -105,11 +99,11 @@ angular.module('starter.controllers', [])
     swap.senderRecords = [myRecord._id];
     swap.receiverRecords = [desiredRecord._id];
     console.log(swap);
+
     swapService.requestSwap(swap).success(function(data){
       console.log(data)
       $scope.modal.hide();
     });
-
   }
   $scope.selectRecord = function(selectedRecord){
     $scope.desiredRecord=selectedRecord;
@@ -133,27 +127,13 @@ angular.module('starter.controllers', [])
     console.log("selectedRecord:", selectedRecord);
     console.log("desiredRecord:", desiredRecord);
   };
-
+  $scope.acceptTrade = function(trade){
+    swapService.acceptTrade(trade)
+    .success(function(data){
+      console.log(data);
+    });
+  };
 })
-
-
-.controller('aptCtrl', function($scope, userService, $state, storageService) {
-  $scope.user = storageService.load("user");
-
-  aptService.get()
-  .success(function(data, status) {
-    aptService.apartments = data;
-    $scope.apartments = data;
-    console.log(data);
-    console.log(status);
-  })
-  $scope.click = function(aptID) {
-    $state.go('tab.aptDetail');
-    aptService.current = aptID;
-  }
-
-})
-//!user.isTenant && !applied || (!user.isAdmin || !user.isManager)
 
 
 .controller('loginCtrl', function($scope, userService, $state, storageService) {
